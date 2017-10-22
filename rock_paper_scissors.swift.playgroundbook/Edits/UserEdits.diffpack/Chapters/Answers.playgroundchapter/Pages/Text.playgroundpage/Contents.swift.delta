@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>// Created by: David Wang
+// Created on: Oct-2017
+// Created for: ICS3U
+// Daily Assignment - Unit3-03
+// This program displays the rock, paper, scissors game
+
+import PlaygroundSupport
+
+import UIKit
+
+class ViewController : UIViewController, UITextFieldDelegate {  
+    // this is the main view controller, that will show the UIKit elements
+    
+    // properties
+    var choiceLabel : UILabel!
+    var outcomeLabel : UILabel!
+    var computerChoiceLabel : UILabel!
+    var rockButton : UIButton!
+    var paperButton : UIButton!
+    var scissorsButton : UIButton!
+    
+    override func viewDidLoad() {
+        // UI
+        super.viewDidLoad()
+        
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.view = view
+        
+        // choiceLabel
+        choiceLabel = UILabel()
+        choiceLabel.text = "Select Rock, Paper, or Scissors and See if You Win!"
+        view.addSubview(choiceLabel)
+        choiceLabel.translatesAutoresizingMaskIntoConstraints = false
+        choiceLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 75).isActive = true
+        choiceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        
+        
+        // outcomeLabel
+        outcomeLabel = UILabel()
+        outcomeLabel.text = ""
+        view.addSubview(outcomeLabel)
+        outcomeLabel.translatesAutoresizingMaskIntoConstraints = false
+        outcomeLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 225).isActive = true
+        outcomeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90).isActive = true
+        
+        // computerChoiceLabel
+        computerChoiceLabel = UILabel()
+        computerChoiceLabel.text = ""
+        view.addSubview(computerChoiceLabel)
+        computerChoiceLabel.translatesAutoresizingMaskIntoConstraints = false
+        computerChoiceLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 275).isActive = true
+        computerChoiceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
+        
+        // rockButton
+        rockButton = UIButton()
+        rockButton.tag = 1
+        rockButton.setTitle("Rock", for: .normal)
+        rockButton.setTitleColor(.blue, for: .normal)
+        rockButton.addTarget(self, action: #selector(outcomeText), for: .touchUpInside)
+        view.addSubview(rockButton)
+        rockButton.translatesAutoresizingMaskIntoConstraints = false
+        rockButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 125).isActive = true
+        rockButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 75).isActive = true
+        
+        // paperButton
+        paperButton = UIButton()
+        paperButton.tag = 2
+        paperButton.setTitle("Paper", for: .normal)
+        paperButton.setTitleColor(.blue, for: .normal)
+        paperButton.addTarget(self, action: #selector(outcomeText), for: .touchUpInside)
+        view.addSubview(paperButton)
+        paperButton.translatesAutoresizingMaskIntoConstraints = false
+        paperButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 125).isActive = true
+        paperButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 190).isActive = true
+        
+        // scissorsButton
+        scissorsButton = UIButton()
+        scissorsButton.tag = 3
+        scissorsButton.setTitle("Scissors", for: .normal)
+        scissorsButton.setTitleColor(.blue, for: .normal)
+        scissorsButton.addTarget(self, action: #selector(outcomeText), for: .touchUpInside)
+        view.addSubview(scissorsButton)
+        scissorsButton.translatesAutoresizingMaskIntoConstraints = false
+        scissorsButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 125).isActive = true
+        scissorsButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 295).isActive = true
+    }
+    
+    @objc func outcomeText(sender:UIButton) {
+        //
+        var computer: [String] = ["rockButton", "paperButton", "scissorsButton"]
+        var choice: [String] = ["rock.", "paper.", "scissors."]
+        var computerChoice = Int(arc4random_uniform(3))
+        switch sender.tag {
+            // rock
+        case 1: if computer[computerChoice] == "scissorsButton" {
+            self.outcomeLabel.text = "You Won!"
+            self.computerChoiceLabel.text = "The computer chose: " + choice[computerChoice]
+        }
+        else if computer[computerChoice] == "rockButton" {
+            self.outcomeLabel.text = "It's a Tie!"
+            self.computerChoiceLabel.text = "The computer also chose: " + choice[computerChoice]
+        }
+        else if computer[computerChoice] == "paperButton" {
+            self.outcomeLabel.text = "You Lose, Better Luck Next Time!"
+            self.computerChoiceLabel.text = "The computer chose: " + choice[computerChoice]
+        }
+        break
+            
+            // paper
+        case 2: if computer[computerChoice] == "rockButton" {
+            self.outcomeLabel.text = "You Won!"
+            self.computerChoiceLabel.text = "The computer chose: " + choice[computerChoice]
+        }
+        else if computer[computerChoice] == "paperButton" {
+            self.outcomeLabel.text = "It's a Tie!"
+            self.computerChoiceLabel.text = "The computer also chose: " + choice[computerChoice]
+        }
+        else if computer[computerChoice] == "scissorsButton" {
+            self.outcomeLabel.text = "You Lose, Better Luck Next Time!"
+            self.computerChoiceLabel.text = "The computer chose: " + choice[computerChoice]
+        }
+            break
+            
+            //scissors
+        case 3: if computer[computerChoice] == "paperButton" {
+            self.outcomeLabel.text = "You Won!"
+            self.computerChoiceLabel.text = "The computer chose: " + choice[computerChoice]
+        }
+        else if computer[computerChoice] == "scissorsButton" {
+            self.outcomeLabel.text = "It's a Tie!"
+            self.computerChoiceLabel.text = "The computer also chose: " + choice[computerChoice]
+        }
+        else if computer[computerChoice] == "rockButton" {
+            self.outcomeLabel.text = "You Lose, Better Luck Next Time!"
+            self.computerChoiceLabel.text = "The computer chose: " + choice[computerChoice]
+        }
+            break
+            
+        default: break
+        }
+        
+        
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true 
+    }
+}
+
+PlaygroundPage.current.liveView = ViewController()
+</string>
+			<key>ModifiedRange</key>
+			<string>{145, 6582}</string>
+			<key>OriginalContent</key>
+			<string>show("What is your name?")
+
+let name = ask("Name")
+
+show("Hi " + name)
+
+</string>
+			<key>OriginalRange</key>
+			<string>{145, 72}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Answers.playgroundchapter/Pages/Text.playgroundpage/Contents.swift</string>
+</dict>
+</plist>
